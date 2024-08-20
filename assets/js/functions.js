@@ -3,8 +3,14 @@ const contenedorScroll = document.querySelector(".container");
 contenedorScroll.addEventListener(
 	"wheel",
 	(event) => {
-		event.preventDefault(); // Evita el scroll vertical predeterminado
-		contenedorScroll.scrollLeft += event.deltaY * 5; // Desplaza horizontalmente según el movimiento de la rueda
+		if (window.matchMedia("(min-width: 768px)").matches) {
+			// Para pantallas más grandes (escritorios, tablets en modo horizontal)
+			event.preventDefault(); // Evita el scroll vertical predeterminado
+			contenedorScroll.scrollLeft += event.deltaY * 5; // Desplaza horizontalmente
+		} else {
+			// Para pantallas más pequeñas (móviles, tablets en modo vertical)
+			contenedorScroll.scrollTop += event.deltaY * 5; // Desplaza verticalmente
+		}
 	},
 	{ passive: false }
 );
